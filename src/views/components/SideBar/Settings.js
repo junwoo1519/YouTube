@@ -21,6 +21,7 @@ const Container = styled.div`
   border-bottom: 1px solid rgb(229 229 229);
   padding-bottom: 15px;
   margin-bottom: 5px;
+
 `;
 
 const Setting = styled(SideMenu)`

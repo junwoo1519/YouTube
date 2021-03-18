@@ -1,29 +1,29 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import {Action} from "../../redux/videos/redux";
+import {Action} from "../../redux/Search/redux";
 import {YOUTUBE_KEY} from "../../constants";
-import VideoItemList from "../components/List/VideoItemList";
 import {useOnViewport} from "../../hooks/useOnViewport";
+import SearchItemList from "../components/List/SearchItemList";
 
-const VideoListContainer = () => {
+const SearchListContainer = ({match}) => {
 
     const dispatch = useDispatch();
-    const {list, isLoading} = useSelector(state => state.videos);
+    const {searchList, isLoading} = useSelector(state => state.search);
     const [page, setPage] = useState(1);
 
-    useEffect(() => {
-        getVideo()
-    }, [page])
+    useEffect(function () {
+        getSearch()
+    }, [page, match.params.query]);
 
-    const getVideo = () => {
-        dispatch(Action.Creators.getVideos({
+    const getSearch = function () {
+        dispatch(Action.Creators.getSearch({
             key: YOUTUBE_KEY,
-            part: "snippet, statistics",
+            part: "snippet",
             chart: "mostPopular",
             maxResults: 20,
-            regionCode: "KR",
-            pageToken: list?.nextPageToken
+            q: `${match.params.query}`,
+            pageToken: searchList?.nextPageToken
         }))
     };
 
@@ -33,13 +33,13 @@ const VideoListContainer = () => {
 
     useEffect(() => {
         if (inViewport) setPage(prevPage => prevPage + 1)
-    }, [inViewport])
+    }, [inViewport]);
 
     return (
         <Container>
-            <VideoItemList data={list.items}/>
+            <SearchItemList data={searchList.items}/>
             {
-                list.items.length > 0 &&
+                searchList.items.length > 0 &&
                 <Sentinel ref={SentinelRef}/>
             }
             {
@@ -68,4 +68,4 @@ const Loading = styled.div`
   height: 100px;
 `;
 
-export default VideoListContainer;
+export default SearchListContainer;
