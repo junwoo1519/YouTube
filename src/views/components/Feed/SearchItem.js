@@ -3,7 +3,7 @@ import styled from "styled-components";
 import moment from "moment";
 import "moment/locale/ko";
 
-const VideoItem = (props) => {
+const SearchItem = (props) => {
 
     const {
         snippet,
@@ -35,7 +35,7 @@ const VideoItem = (props) => {
 }
 
 const Container = styled.div`
-
+  display: flex;
 `;
 
 const Thumb = styled.div`
@@ -93,4 +93,4 @@ const Detail = styled.div`
   }
 `;
 
-export default VideoItem;
+export default SearchItem;

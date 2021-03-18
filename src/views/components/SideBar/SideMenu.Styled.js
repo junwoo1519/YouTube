@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {Link} from "react-router-dom";
 
 export const SideMenu = styled(Link)`
@@ -20,9 +20,31 @@ export const SideMenu = styled(Link)`
     background-color: #f1f1f1;
   }
 
-  &.isActive {
+  ${(props) => props.className === "isActive" && css`
+    display: flex;
+    font-size: 20px;
+    height: 40px;
+    align-items: center;
+    padding: 0 24px;
     background-color: #e5e5e5;
     color: red;
-  }
+  `}
 
+  ${(props) => props.shape === "onBtn" && css`
+    display: flex;
+    flex-direction: column;
+    height: 74px;
+    padding: 16px 0 14px;
+
+    p {
+      font-size: 10px;
+      margin: 10px 0 0 0;
+    }
+
+    &.isActive {
+      p {
+        color: red;
+      }
+    }
+  `}
 `;
