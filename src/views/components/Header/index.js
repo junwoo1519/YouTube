@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {IoMenu} from "react-icons/io5";
 import {MdKeyboard, MdKeyboardVoice, MdSearch} from "react-icons/md";
@@ -6,19 +6,21 @@ import {CgMenuGridR} from "react-icons/cg";
 import {HiOutlineDotsVertical, HiOutlineUser} from "react-icons/hi";
 import {ImYoutube, ImYoutube2} from "react-icons/im";
 import {useDispatch, useSelector} from "react-redux";
+import {AiOutlineExport} from "react-icons/all";
+
 import cn from "classnames";
 import {useGoogleLogin, useGoogleLogout} from 'react-google-login';
 import {useHistory} from "react-router-dom";
 
 import {Action} from "../../../redux/auth/redux";
-import {AiOutlineExport} from "react-icons/all";
+import {appAction} from "../../../redux/app/redux";
 
 const Header = () => {
 
     const history = useHistory();
     const dispatch = useDispatch();
-
     const {user, isLoggedIn} = useSelector(state => state.auth);
+    const {btn} = useSelector(state => state.app);
 
     const onSuccess = (res) => {
         const data = {
@@ -40,7 +42,7 @@ const Header = () => {
         window.localStorage.removeItem("auth")
     }
 
-    const {signIn, loaded} = useGoogleLogin({
+    const {signIn} = useGoogleLogin({
         onSuccess,
         clientId: process.env.REACT_APP_GOOGLE_LOGIN_CLIENT_ID,
         cookiePolicy: "single_host_origin",
@@ -54,29 +56,54 @@ const Header = () => {
         isSignedIn: true,
     });
 
+    const onSubmit = function (e) {
+        e.preventDefault()
+        history.push(`/search/${query}`)
+    };
+
+    const [query, setQuery] = useState("");
+
+    const onChange = function (e) {
+        setQuery(e.target.value)
+    };
+
+    const handleBtn = function (status) {
+        if (btn === true) {
+            dispatch(appAction.Creators.updateState({
+                btn: !status
+            }))
+        } else {
+            dispatch(appAction.Creators.updateState({
+                btn: status
+            }))
+        }
+    }
+
     return (
         <Container>
-            <MenuBtn>
+            <MenuBtn onClick={() => handleBtn(true)}>
                 <IoMenu/>
             </MenuBtn>
+            {
+
+            }
             <Logo onClick={() => history.push("/")}>
                 <ImYoutube/>
                 <ImYoutube2 className={"logoTitle"}/>
             </Logo>
             <Search>
-                <Form>
+                <Form onSubmit={onSubmit}>
                     <Input>
                         <input
                             type="search"
                             placeholder="검색"
-                            onSubmit={}
-                            
+                            onChange={onChange}
                         />
                         <Keyboard>
                             <MdKeyboard/>
                         </Keyboard>
                     </Input>
-                    <SearchBtn>
+                    <SearchBtn onSubmit={onSubmit}>
                         <MdSearch/>
                     </SearchBtn>
                 </Form>
@@ -285,9 +312,9 @@ const Logout = styled.div`
   padding: 5px 0;
   font-size: 26px;
   margin-left: 10px;
-  color:#606060;
+  color: #606060;
   cursor: pointer;
-  
+
   p {
     font-size: 14px;
     font-weight: 500;

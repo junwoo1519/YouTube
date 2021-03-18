@@ -6,7 +6,7 @@ const initialState = {
 
 export const Action = {
     Types: {
-        UPDATE_STATE: "UPDATE_STATE",
+        UPDATE_STATE: "VIDEOS/UPDATE_STATE",
         GET_VIDEOS: "VIDEOS/GET_VIDEOS",
         SET_VIDEOS: "VIDEOS/SET_VIDEOS"
     },
