@@ -9,8 +9,8 @@ const saga = function* () {
         [
             call(appSaga),
             call(authSaga),
-            // call(videoSaga),
-            // call(searchSaga),
+            call(videoSaga),
+            call(searchSaga),
         ]
     )
 }

@@ -2,12 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import moment from "moment";
 import "moment/locale/ko";
+import {setViewCount} from "../../../lib/common";
 
 const VideoItem = (props) => {
 
     const {
         snippet,
-        channels
+        channels,
+        statistics
     } = props;
 
     moment.locale("ko");
@@ -27,7 +29,7 @@ const VideoItem = (props) => {
                 <Detail>
                     <h3>{snippet?.title}</h3>
                     <p>{snippet?.channelTitle}</p>
-                    <p>조회수 회 {publishedAt}</p>
+                    <p>조회수 {setViewCount(statistics.viewCount)}회 {publishedAt}</p>
                 </Detail>
             </Desc>
         </Container>

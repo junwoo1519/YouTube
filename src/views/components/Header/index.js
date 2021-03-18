@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import {IoMenu} from "react-icons/io5";
 import {MdKeyboard, MdKeyboardVoice, MdSearch} from "react-icons/md";

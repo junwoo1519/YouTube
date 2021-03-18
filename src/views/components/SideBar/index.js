@@ -15,7 +15,7 @@ const SideBar = () => {
 
     const location = useLocation()
     return (
-        <Container className={cn({onBtn: app.btn})}>
+        <Container>
             <MainMenu location={location}/>
             <OnBtn className={cn({onBtn: app.btn})}>
                 <UserVideoManagement/>
@@ -30,11 +30,7 @@ const Container = styled.div`
   position: fixed;
   top: 56px;
   left: 0;
-  width: 240px;
   padding: 12px 8px 0 0;
-  ${(props) => props.className === "onBtn" && css`
-    width: 80px;
-  `}
 `;
 
 const OnBtn = styled.div`

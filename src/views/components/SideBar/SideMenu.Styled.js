@@ -1,7 +1,6 @@
 import styled, {css} from "styled-components";
-import {Link} from "react-router-dom";
 
-export const SideMenu = styled(Link)`
+export const SideMenu = styled.div`
   display: flex;
   font-size: 20px;
   height: 40px;
@@ -34,6 +33,7 @@ export const SideMenu = styled(Link)`
     display: flex;
     flex-direction: column;
     height: 74px;
+    width: 80px;
     padding: 16px 0 14px;
 
     p {

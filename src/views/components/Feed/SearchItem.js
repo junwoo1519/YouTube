@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import moment from "moment";
 import "moment/locale/ko";
+import {setViewCount} from "../../../lib/common";
 
 const SearchItem = (props) => {
 
@@ -21,14 +22,17 @@ const SearchItem = (props) => {
                 </Image>
             </Thumb>
             <Desc>
-                <Avatar>
-                    <img src={channels?.thumbnails?.high.url} alt=""/>
-                </Avatar>
                 <Detail>
                     <h3>{snippet?.title}</h3>
-                    <p>{snippet?.channelTitle}</p>
-                    <p>조회수 회 {publishedAt}</p>
+                    <p>조회수 {setViewCount()}회 {publishedAt}</p>
                 </Detail>
+                <Avatar>
+                    <img src={channels?.thumbnails?.default.url} alt=""/>
+                    <p>{snippet?.channelTitle}</p>
+                </Avatar>
+                <Description>
+                    <p>{channels?.localized.description}</p>
+                </Description>
             </Desc>
         </Container>
     )
@@ -36,11 +40,14 @@ const SearchItem = (props) => {
 
 const Container = styled.div`
   display: flex;
+  width: 80%;
+  margin: 0 auto;
 `;
 
 const Thumb = styled.div`
   position: relative;
-  padding-bottom: ${9 / 16 * 99}%;
+  padding-bottom: ${9 / 16 * 32}%;
+  flex: 1;
 `;
 
 const Image = styled.div`
@@ -59,21 +66,29 @@ const Image = styled.div`
 
 const Desc = styled.div`
   display: flex;
-  padding: 10px 0;
+  flex-direction: column;
+  flex: 2;
+  margin-left: 20px;
 `;
 
 const Avatar = styled.div`
-  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 
   img {
-    width: 36px;
-    height: 36px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
+    margin-right: 7px;
+  }
+
+  p {
+    font-size: 13px;
   }
 `;
 
 const Detail = styled.div`
-  flex: 1;
 
   h3 {
     font-size: 16px;
@@ -82,7 +97,6 @@ const Detail = styled.div`
     margin-bottom: 5px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
     overflow: hidden;
   }
 
@@ -90,6 +104,14 @@ const Detail = styled.div`
     color: #606060;
     font-size: 14px;
     line-height: 1.4;
+    margin-bottom: 10px;
+  }
+`;
+
+const Description = styled.div`
+  p {
+    font-size: 13px;
+    margin: 0 0 8px;
   }
 `;
 
